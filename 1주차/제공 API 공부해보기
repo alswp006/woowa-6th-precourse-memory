@@ -1,0 +1,244 @@
+## API 공부 목적
+
+- 이번 우아한 테크코스 프리코스 1주차 기능을 읽어보다가 프리코스에서 제공하는 API를 사용해야 한다는 요구사항에 API를 공부해서 사용하면 더 나은 코드를 만들 수 있겠지라는 생각과 잘 구성된 API를 공부해보면 저의 성장에도 큰 힘이 될 것 같아서 공부를 해보려 합니다!
+
+# camp.nextstep.edu.missionutils
+
+- 이번 우아한 테크코스 1주차 숫자야구게임에서는 `camp.nextstep.edu.missionutils` API를 제공하여주었습니다.
+- 그리고 이 API에는 Randoms 클래스와 Console 클래스가 있습니다.
+- 요구사항에서는 이 API를 어떻게 사용할지 가이드가 있었습니다!
+    - “Random 값 추출은 `camp.nextstep.edu.missionutils.Randoms`의 `pickNumberInRange()`를 활용합니다.”
+    - “사용자가 입력하는 값은 `camp.nextstep.edu.missionutils.Console`의 `readLine()`을 활용합니다.”
+- 그럼 우선 Randoms클래스의 코드를 공부해보겠습니다!
+
+## Randoms
+
+```java
+package camp.nextstep.edu.missionutils;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
+
+public class Randoms {
+    private static final Random defaultRandom = ThreadLocalRandom.current();
+
+    private Randoms() {
+    }
+
+    public static int pickNumberInList(final List<Integer> numbers) {
+        validateNumbers(numbers);
+        return numbers.get(pickNumberInRange(0, numbers.size() - 1));
+    }
+
+    public static int pickNumberInRange(final int startInclusive, final int endInclusive) {
+        validateRange(startInclusive, endInclusive);
+        return startInclusive + defaultRandom.nextInt(endInclusive - startInclusive + 1);
+    }
+
+    public static List<Integer> pickUniqueNumbersInRange(
+        final int startInclusive,
+        final int endInclusive,
+        final int count
+    ) {
+        validateRange(startInclusive, endInclusive);
+        validateCount(startInclusive, endInclusive, count);
+        final List<Integer> numbers = new ArrayList<>();
+        for (int i = startInclusive; i <= endInclusive; i++) {
+            numbers.add(i);
+        }
+        return shuffle(numbers).subList(0, count);
+    }
+
+    public static <T> List<T> shuffle(final List<T> list) {
+        final List<T> result = new ArrayList<>(list);
+        Collections.shuffle(result);
+        return result;
+    }
+
+    private static void validateNumbers(final List<Integer> numbers) {
+        if (numbers.isEmpty()) {
+            throw new IllegalArgumentException("numbers cannot be empty.");
+        }
+    }
+
+    private static void validateRange(final int startInclusive, final int endInclusive) {
+        if (startInclusive > endInclusive) {
+            throw new IllegalArgumentException("startInclusive cannot be greater than endInclusive.");
+        }
+        if (endInclusive == Integer.MAX_VALUE) {
+            throw new IllegalArgumentException("endInclusive cannot be greater than Integer.MAX_VALUE.");
+        }
+        if (endInclusive - startInclusive >= Integer.MAX_VALUE) {
+            throw new IllegalArgumentException("the input range is too large.");
+        }
+    }
+
+    private static void validateCount(final int startInclusive, final int endInclusive, final int count) {
+        if (count < 0) {
+            throw new IllegalArgumentException("count cannot be less than zero.");
+        }
+        if (endInclusive - startInclusive + 1 < count) {
+            throw new IllegalArgumentException("count cannot be greater than the input range.");
+        }
+    }
+}
+```
+
+- 우선 Randoms의 생성자를 제외한 모든 필드와 메소드는 static으로 정의되어 있어 객체를 생성하지 않고 바로 클래스를 호출하여 사용할 수 있습니다.
+- 그리고 defaultRandom이라는 필드가 private한 Random 타입의 상수로 선언되고 ThreadLocalRandom.current()로 초기화되어 있습니다.
+- 그러면 ThreadLocalRandom.current()에 대해서 먼저 공부해보겠습니다!
+
+### ThreadLocalRandom.current()
+
+- ThreadLocalRandom 클래스의 선언부를 보면 java.utill.Random을 상속받고 있습니다.
+    
+    ```java
+    public class ThreadLocalRandom extends Random
+    ```
+    
+- 그리고 current() 메소드를 보면 U.getInt(Thread.currentThread(), PROBE)가 0이면 localinit()를 실행시키고 instance를 반환합니다.
+    
+    ```java
+    public static ThreadLocalRandom current() {
+            if (U.getInt(Thread.currentThread(), PROBE) == 0)
+                localInit();
+            return instance;
+        }
+    ```
+    
+    - instance는 ThreadLocalRandom클래스의 객체이다. 그렇다면 이 메소드는 ThreadLocalRandom객체의 인스턴스를 반환하는 메소드라고 생각하면 될 것 같습니다!
+        
+        ```java
+        private static final ThreadLocalRandom instance = new ThreadLocalRandom();
+        ```
+        
+- 메소드의 설명을 보면 다음과 같습니다.
+    - “Returns the current thread's ThreadLocalRandom object. Methods of this object should be called only by the current thread, not by other threads. Returns: the current thread's ThreadLocalRandom”
+    - “현재 스레드의 ThreadLocalRandom 객체를 반환합니다. 이 개체의 메서드는 다른 스레드가 아닌 현재 스레드에서만 호출해야 합니다. 반환: 현재 스레드의 ThreadLocalRandom”
+- 그렇다면 ThreadLocalRandom.current()으로 현재 스레드의 ThreadLocalRandom 객체의 참조값을 defaultRandom에 넣어줬다고 생각해볼 수 있습니다.
+- 이제 우리가 사용해야하는 `pickNumberInRange` 라는 메소드를 확인해보겠습니다!
+
+### pickNumberInRange()
+
+```java
+public static int pickNumberInRange(final int startInclusive, final int endInclusive) {
+        validateRange(startInclusive, endInclusive);
+        return startInclusive + defaultRandom.nextInt(endInclusive - startInclusive + 1);
+    }
+```
+
+- 우선 pickNumberInRange() 메소드는 매개변수로 (final int startInclusive, final int endInclusive)라는 두 정수값을 받습니다.
+- 그리고 validateRange() 메소드에 매개변수 값들을 넣어줍니다.
+    
+    ```java
+    private static void validateRange(final int startInclusive, final int endInclusive) {
+            if (startInclusive > endInclusive) {
+                throw new IllegalArgumentException("startInclusive cannot be greater than endInclusive.");
+            }
+            if (endInclusive == Integer.MAX_VALUE) {
+                throw new IllegalArgumentException("endInclusive cannot be greater than Integer.MAX_VALUE.");
+            }
+            if (endInclusive - startInclusive >= Integer.MAX_VALUE) {
+                throw new IllegalArgumentException("the input range is too large.");
+            }
+        }
+    ```
+    
+    - validateRange()메소드는 startInclusive가 endInclusive보다 크거나 endInclusive가 정수값 범위를 벗어났을 때  endInclusive - startInclusive가 정수값 범위보다 클 때 오류를 던져주는 함수입니다.
+        
+        ```java
+        //A constant holding the maximum value an int can have, 231-1.
+        @Native public static final int   MAX_VALUE = 0x7fffffff;
+        ```
+        
+    - 즉, validateRange(startInclusive, endInclusive)는 startInclusive와 endInclusive 값의 유효성을 검사해주는 메소드라는 것입니다.
+- 그리고 return startInclusive + defaultRandom.nextInt(endInclusive - startInclusive + 1)을 통해 랜덤 값을 반환해줍니다.
+    - nextInt의 코드는 아래와 같이 구성되어 있습니다.
+        
+        ```java
+        @Override
+            public int nextInt(int bound) {
+                if (bound <= 0)
+                    throw new IllegalArgumentException(BAD_BOUND);
+                int r = next(31);
+                int m = bound - 1;
+                if ((bound & m) == 0)  // i.e., bound is a power of 2
+                    r = (int)((bound * (long)r) >> 31);
+                else { // reject over-represented candidates
+                    for (int u = r;
+                         u - (r = u % bound) + m < 0;
+                         u = next(31))
+                        ;
+                }
+                return r;
+            }
+        ```
+        
+    - nextInt의 설명은 다음과 같습니다.
+        - “Returns a pseudorandom, uniformly distributed int value between 0 (inclusive) and the specified value (exclusive), drawn from this random number generator's sequence”
+        - “이 난수 생성기 시퀀스에서 가져온 0(포함)과 지정된 값(제외) 사이에 균일하게 분포된 int 값을 의사 난수로 반환합니다.”
+    - 따라서 위의 defaultRandom.nextInt(endInclusive - startInclusive + 1)코드는 0 ~ 매개변수로 받는 값 -1까지의 랜덤한 수를 반환받는다는 것을 알 수 있고 저희는 수를 100부터 999까지의 수를 받아야하니 nextInt의 매개변수를 1000으로 넣어줘야 합니다. 따라서 endInclusive - startInclusive는 999가 되어야하지만 반환값은 이에 startInclusive을 더해줬으므로 endInclusive - startInclusive는 899가 되어야함을 알 수 있다.
+        - 이렇게 한 것은 startInclusive인 100부터 endInclusive인 999까지의 수를 생성하기 위함이라고 볼 수 있겠죠?
+- 결론적으로 pickNumberInRange는 startInclusive와 endInclusive를 포함하는 랜덤수를 생성한다고 확인할 수 있었습니다. 그래서 우리는 100과 999라는 매개변수를 주어 랜덤한 수를 생성하면 됩니다.
+    
+    → **(나중에 리스트를 사용하여 1부터 9까지 랜덤수를 생성하여 세 자리에 넣어주는 방식으로 변경하였습니다!)**
+    
+
+## Console
+
+```java
+package camp.nextstep.edu.missionutils;
+
+import java.util.Scanner;
+
+public class Console {
+    private static Scanner scanner;
+
+    private Console() {
+    }
+
+    public static String readLine() {
+        return getInstance().nextLine();
+    }
+
+    public static void close() {
+        if (scanner != null) {
+            scanner.close();
+            scanner = null;
+        }
+    }
+
+    private static Scanner getInstance() {
+        if (scanner == null) {
+            scanner = new Scanner(System.in);
+        }
+        return scanner;
+    }
+}
+```
+
+- Console클래스를 보면 우선 생성자를 제외한 모든 필드와 메소드가 static 선언이 되어있어 객체를 생성하지 않고 메소드를 바로 호출하여 사용할 수 있습니다.
+- 그리고 필드는 Scnner타입으로 scanner라는 이름으로 선언되어있습니다.
+
+### readLine()
+
+- 우리가 사용해야할 readLine() 메소드를 보면 getInstance().nextLine()을 반환합니다.
+- getInstance()
+    - getInstance()는 scanner가 null값 즉, input받은 값이 없다면 Scanner객체를 생성하고 [System.in](http://System.in) 값을 주어 scanner 변수가 참조하도록 합니다.
+    - 그리고 그 scanner값을 반환해줍니다.
+- getInstance에서 반환받은 scanner값을 nextLine이라는 Scanner클래스 내장함수를 이용하여 한줄씩 반환해줍니다.
+
+### close()
+
+- 이 클래스에 존재하는 close라는 함수는 scanner가 null이 아니라면 Scanner의 내장함수인 close()메소드를 통해 scanner를 닫아준 후 scanner값을 null로 만들어 다음에 값을 받을 준비를 해줍니다!
+- 값을 입력받고 한번의 숫자 검사가 끝난후 close를 이용하여 닫아주면 될 것 같습니다!
+
+## 정리
+
+- 이렇게 프리코스에서 기본으로 제공해주는 API에 대해서 공부해봤습니다!
+- 이미 알고 있는 내용들은 확실하게 개념이 정리되고 몰랐던 내용들은 공부가 되는 경험이었다고 생각합니다!
+- 원래는 100~999의 숫자를 랜덤 생성해주는 로직에서 중간에 리스트를 만들어 1에서 9까지의 수를 랜덤 생성해주고 세 자리에 넣어주는 로직으로 변경했는데 간단한 로직 변경이었지만 API를 공부하여 더 쉽게 바꾸지 않았나라는 뿌듯한 생각도 듭니다👍
+- 이렇게 API를 뜯어본 경험은 저에게 큰 성장을 가져다 준 것 같습니다!
