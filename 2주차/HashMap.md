@@ -72,12 +72,12 @@ for (Entry<String, Integer> item : hashMap.entrySet())
 - HashMap은 잘 사용하면 속도적인 측면에서 Array나 List보다 유용하게 사용될 수도 있을 것 같습니다.
 - [HashMap 공식 API 문서](https://docs.oracle.com/en/java/javase/21/docs/api/java.base/java/util/HashMap.html)
 
-## LinkHashMap
+## LinkedHashMap
 
 - 여기서 끝인줄 알았으나 제가 한가지 간과한 부분이 있었습니다…
 - 그것은 바로 HashMap은 순서를 보장해주지 않는다는 점..
-- HashMap을 구현하여 미션에서 자동차의 이름과 이동횟수의 데이터를 저장해주었으나 순서가 입력한 순서대로 나오지 않는 문제를 겪었고 이를 해결하기 위해 LinkHashMap을 공부하여 사용하려고 합니다..!
-- LinkHashMap은 Map에 입력된 순서를 기억하는 자료구조입니다.
+- HashMap을 구현하여 미션에서 자동차의 이름과 이동횟수의 데이터를 저장해주었으나 순서가 입력한 순서대로 나오지 않는 문제를 겪었고 이를 해결하기 위해 LinkedHashMap을 공부하여 사용하려고 합니다..!
+- LinkedHashMap은 Map에 입력된 순서를 기억하는 자료구조입니다.
 - 공식 API의 설명으로는 “Hash table and linked list implementation of the `Map` interface, with well-defined encounter order”, “잘 정의된 만남 순서를 사용하여 Map 인터페이스의 해시 테이블 및 연결 목록 구현”이라고 합니다.
     - 즉, HashTable과 LinkedList를 사용하여 만들어진 자료구조인 것 같습니다.
 - 기본적인 사용법은 HashMap과 동일하고 순서가 있다는 점만 다른 것 같습니다.
