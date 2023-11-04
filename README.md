@@ -3,3 +3,4 @@
 - 주차별로 공부한 내용들과 회고들을 정리해볼 것입니다!
 ## 과제
 - [1주차 - 숫자 야구 게임](https://github.com/alswp006/java-baseball-6)
+- [2주차 - 자동차 경주](https://github.com/alswp006/java-racingcar-6)
