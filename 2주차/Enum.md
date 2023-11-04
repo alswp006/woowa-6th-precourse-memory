@@ -144,7 +144,7 @@ public enum Class {
     private final String Class;
     private final List<String> name;
 
-    Week(String Class, List<String> name) {
+    Class(String Class, List<String> name) {
         this.Class = Class;
         this.name = name;
     }
