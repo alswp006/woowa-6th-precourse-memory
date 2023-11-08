@@ -215,7 +215,7 @@
 
 - 리팩토링할 내용들을 정리해보면 아래와 같습니다.
 - stream의 적용은 글이 길어질 것 같아 따로 빼두었습니다.
-    - stream을 적용한다.
+    - [stream을 적용](https://github.com/alswp006/woowa-6th-precourse-memory/blob/main/3%EC%A3%BC%EC%B0%A8/Stream%20%EC%A0%95%EB%B3%B5%EA%B8%B0.md)한다.
     - [x]  Controller의 matchResult메소드를 비즈니스 로직으로 옮긴다.
         - 현재 matchResult메소드와 연관되어 있는 메소드
             - Lotto의 matchNumber : 당첨 번호와 일치하는 갯수 반환
