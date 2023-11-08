@@ -3,17 +3,17 @@
 
 # 현재 코드 목차
 
-- [Controller](https://www.notion.so/DTO-Stream-635eef205eea409ba4c5e8340ae1042f?pvs=21)
-    - [PlayGame](https://www.notion.so/DTO-Stream-635eef205eea409ba4c5e8340ae1042f?pvs=21)
-- [Model](https://www.notion.so/DTO-Stream-635eef205eea409ba4c5e8340ae1042f?pvs=21)
-    - [Lotto](https://www.notion.so/DTO-Stream-635eef205eea409ba4c5e8340ae1042f?pvs=21)
-    - [Result](https://www.notion.so/DTO-Stream-635eef205eea409ba4c5e8340ae1042f?pvs=21)
-    - [Setting](https://www.notion.so/DTO-Stream-635eef205eea409ba4c5e8340ae1042f?pvs=21)
-    - [UserLotto](https://www.notion.so/DTO-Stream-635eef205eea409ba4c5e8340ae1042f?pvs=21)
-    - [Winning](https://www.notion.so/DTO-Stream-635eef205eea409ba4c5e8340ae1042f?pvs=21)
-- [View](https://www.notion.so/DTO-Stream-635eef205eea409ba4c5e8340ae1042f?pvs=21)
-    - [PrintInput](https://www.notion.so/DTO-Stream-635eef205eea409ba4c5e8340ae1042f?pvs=21)
-    - [PrintOutput](https://www.notion.so/DTO-Stream-635eef205eea409ba4c5e8340ae1042f?pvs=21)
+- [Controller](#controller)
+    - [PlayGame](#playgame)
+- [Model](model)
+    - [Lotto](#lotto)
+    - [Result](#result)
+    - [Setting](#setting)
+    - [UserLotto](#userlotto)
+    - [Winning](#winning)
+- [View](#view)
+    - [PrintInput](#printinput)
+    - [PrintOutput](#printoutput)
 
 # Controller
 
