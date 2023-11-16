@@ -5,3 +5,4 @@
 - [1주차 - 숫자 야구 게임](https://github.com/alswp006/java-baseball-6)
 - [2주차 - 자동차 경주](https://github.com/alswp006/java-racingcar-6)
 - [3주차 - 로또](https://github.com/alswp006/java-lotto-6)
+- [4주차 - 크리스마스 프로모션](https://github.com/woowacourse-precourse/java-christmas-6)
