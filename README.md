@@ -17,4 +17,4 @@
 ## 최종 코딩테스트
 | Mission                        | Repository                                                                                    |복습   |
 | --------------------------- | --------------------------------------------------------------------------------------------- |----|
-|미션 - 개발자 비상근무🧑‍💻|[java-oncall-6](https://github.com/alswp006/java-oncall-6-alswp006)|복습은 practice 브랜치를 만들어 해보고 있습니다!|
+|미션 - 개발자 비상근무🧑‍💻|[java-oncall-6](https://github.com/alswp006/java-oncall-6-alswp006)|[java-oncall-6 복습 브랜치](https://github.com/alswp006/java-oncall-6-alswp006/tree/practice)|
