@@ -8,3 +8,5 @@
 - 여러 디자인 패턴 생각해보기
 - 효율적인 크루 데이터 저장 방법 생각해보기
 - 효율적인 날짜들의 저장 방법 생각해보기
+
+[👉복습 브랜치](https://github.com/alswp006/java-oncall-6-alswp006/tree/practice)
