@@ -15,6 +15,6 @@
 |미션 - 다리 건너기🏃|[java-bridge](https://github.com/alswp006/java-bridge)|
 |미션 - 페어매칭관리 애플리케이션👯|[java-pairmatching-precourse](https://github.com/alswp006/java-pairmatching-precourse)|
 ## 최종 코딩테스트
-| Mission                        | Repository                                                                                    |복습   |
-| --------------------------- | --------------------------------------------------------------------------------------------- |----|
-|미션 - 개발자 비상근무🧑‍💻|[java-oncall-6](https://github.com/alswp006/java-oncall-6-alswp006)|[java-oncall-6 복습 브랜치](https://github.com/alswp006/java-oncall-6-alswp006/tree/practice)|
+| Mission                        | Repository                                                                                    |복습   |구현 회고|
+| --------------------------- | --------------------------------------------------------------------------------------------- |----|----|
+|미션 - 개발자 비상근무🧑‍💻|[java-oncall-6](https://github.com/alswp006/java-oncall-6-alswp006)|[java-oncall-6 복습 브랜치](https://github.com/alswp006/java-oncall-6-alswp006/tree/practice)|[최종 코딩테스트 구현 회고](https://github.com/alswp006/woowa-6th-precourse-memory/blob/main/%EC%B5%9C%EC%A2%85%20%EC%BD%94%EB%94%A9%ED%85%8C%EC%8A%A4%ED%8A%B8%20%ED%9A%8C%EA%B3%A0.md)
